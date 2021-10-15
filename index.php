@@ -28,8 +28,9 @@ function skycodes_hash_matxrix($string, $action = 'e') {
 $url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $str = substr(strrchr($url, '/'), 1);
 $id = skycodes_hash_matxrix($str, 'd');
+if($id){
 echo '<script> window.location.href="'.directdl2($id).'" </script>';
-
+}
 //header('Location: '.directdl2($id).'');
 
 if (empty($id)) {
