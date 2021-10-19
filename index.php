@@ -1,11 +1,20 @@
 <?php
+function get_random_proxy()
+{
+    srand ((double)microtime()*1000000);
+    $f_contents = file ("https://yoursite.com/proxy.txt");
+    $line = $f_contents[array_rand ($f_contents)];
+    return $line;
+}
 function directdl2($id) {
     $ch = curl_init("https://drive.google.com/uc?id=$id&authuser=0&export=download");
+    $proxy =  get_random_proxy();
     curl_setopt_array($ch, array(
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_POSTFIELDS => [],
         CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_PROXY => $proxy
         CURLOPT_ENCODING => 'gzip,deflate',
         CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
         CURLOPT_HTTPHEADER => ['accept-encoding: gzip, deflate, br',
